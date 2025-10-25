@@ -598,15 +598,13 @@
 
     .swipe-hint {
       position: absolute;
-      bottom: 15px;
+      bottom: -10px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--yellow);
-      border-radius: 18px;
-      padding: 8px 14px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      background: var(--black);
+      border-radius: 20px;
+      padding: 6px 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       z-index: 10;
       opacity: 1;
       transition: all 0.3s ease-out;
@@ -614,33 +612,31 @@
 
     .swipe-hint.hidden {
       opacity: 0;
-      transform: translateX(-50%) translateY(15px);
+      transform: translateX(-50%) translateY(10px);
       pointer-events: none;
     }
 
     .swipe-hint-content {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--black);
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--yellow);
     }
 
     .swipe-hint-content i {
       color: var(--yellow);
-      font-size: 14px;
-      animation: swipeHintPulse 2s ease-in-out infinite;
+      font-size: 12px;
+      animation: swipeHintBounce 1.5s ease-in-out infinite;
     }
 
-    @keyframes swipeHintPulse {
+    @keyframes swipeHintBounce {
       0%, 100% { 
         transform: translateX(0);
-        opacity: 0.8;
       }
       50% { 
-        transform: translateX(-3px);
-        opacity: 1;
+        transform: translateX(-2px);
       }
     }
 
