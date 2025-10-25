@@ -26,6 +26,7 @@
       direction: rtl;
       text-align: right;
       line-height: 1.8;
+      overflow-x: hidden;
     }
 
     .app {
@@ -532,13 +533,117 @@
       font-weight: 600;
     }
 
-
     .fleet-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 25px;
       margin-top: 20px;
     }
+
+    /* Mobile Tinder-Style Swiper */
+    .fleet-swiper {
+      display: none;
+      margin-top: 20px;
+      position: relative;
+      height: 700px;
+      perspective: 1000px;
+    }
+
+    .fleet-swiper-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .fleet-swiper-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0 10px;
+      transition: all 0.3s ease-out;
+      transform-origin: center center;
+      z-index: 1;
+    }
+
+    .fleet-swiper-slide:nth-child(1) {
+      z-index: 3;
+    }
+
+    .fleet-swiper-slide:nth-child(2) {
+      z-index: 2;
+      transform: scale(0.95) translateY(10px);
+      opacity: 0.8;
+    }
+
+    .fleet-swiper-slide:nth-child(3) {
+      z-index: 1;
+      transform: scale(0.9) translateY(20px);
+      opacity: 0.6;
+    }
+
+    .fleet-swiper-slide:nth-child(n+4) {
+      display: none;
+    }
+
+    .fleet-swiper-slide.swiping {
+      transition: none;
+    }
+
+    .fleet-swiper-slide.swiped-left {
+      transform: translateX(-100%) rotate(-30deg);
+      opacity: 0;
+    }
+
+    .swipe-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--yellow);
+      border-radius: 25px;
+      padding: 12px 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      z-index: 10;
+      opacity: 1;
+      transition: all 0.3s ease-out;
+    }
+
+    .swipe-hint.hidden {
+      opacity: 0;
+      transform: translateX(-50%) translateY(20px);
+      pointer-events: none;
+    }
+
+    .swipe-hint-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .swipe-hint-content i {
+      color: var(--yellow);
+      font-size: 16px;
+      animation: swipeHintPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes swipeHintPulse {
+      0%, 100% { 
+        transform: translateX(0);
+        opacity: 0.8;
+      }
+      50% { 
+        transform: translateX(-3px);
+        opacity: 1;
+      }
+    }
+
 
     .car-card {
       background: var(--white);
@@ -605,44 +710,64 @@
     .car-specs {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      gap: 16px;
     }
 
     .spec-item {
       background: linear-gradient(135deg, #ffffff, #f8f9fa);
       border: 2px solid #e9ecef;
-      border-radius: 12px;
-      padding: 10px 8px;
+      border-radius: 15px;
+      padding: 14px 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      gap: 10px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
       position: relative;
       overflow: hidden;
-      min-height: 50px;
+      min-height: 60px;
+      transition: all 0.3s ease;
+    }
+
+    .spec-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+      border-color: var(--yellow);
     }
 
     .spec-item i {
-      font-size: 16px;
+      font-size: 18px;
       color: var(--yellow);
       background: var(--black);
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .spec-item:hover i {
+      background: var(--yellow);
+      color: var(--black);
+      transform: scale(1.05);
     }
 
     .spec-item span {
-      font-size: 11px;
-      color: #555;
-      font-weight: 600;
-      line-height: 1.2;
+      font-size: 13px;
+      color: #333;
+      font-weight: 700;
+      line-height: 1.3;
       text-align: center;
       flex: 1;
+      transition: color 0.3s ease;
+    }
+
+    .spec-item:hover span {
+      color: var(--black);
     }
 
     .car-price {
@@ -668,14 +793,15 @@
 
     .car-actions {
       display: flex;
-      gap: 10px;
+      gap: 12px;
+      margin-top: 5px;
     }
 
     .action-btn {
       flex: 1;
-      padding: 12px;
+      padding: 14px 16px;
       border: none;
-      border-radius: 12px;
+      border-radius: 15px;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
@@ -685,16 +811,63 @@
       justify-content: center;
       gap: 8px;
       font-family: 'Tajawal', sans-serif;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .action-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .action-btn:hover::before {
+      left: 100%;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .action-btn:active {
+      transform: translateY(0);
     }
 
     .call-btn {
-      background: linear-gradient(135deg, #28a745, #20c997);
-      color: white;
+      background: linear-gradient(135deg, var(--yellow), #ffed4e);
+      color: var(--black);
+      border: 2px solid var(--black);
+    }
+
+    .call-btn:hover {
+      background: linear-gradient(135deg, var(--black), #333);
+      color: var(--yellow);
+      border-color: var(--yellow);
     }
 
     .whatsapp-btn {
-      background: linear-gradient(135deg, #25d366, #128c7e);
-      color: white;
+      background: linear-gradient(135deg, var(--black), #333);
+      color: var(--yellow);
+      border: 2px solid var(--yellow);
+    }
+
+    .whatsapp-btn:hover {
+      background: linear-gradient(135deg, var(--yellow), #ffed4e);
+      color: var(--black);
+      border-color: var(--black);
+    }
+
+    .action-btn i {
+      font-size: 16px;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
     }
 
     .remove-car-btn {
@@ -872,8 +1045,11 @@
 
       /* Fleet responsive styles */
       .fleet-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        display: none;
+      }
+
+      .fleet-swiper {
+        display: block;
       }
 
       .car-card {
@@ -892,22 +1068,23 @@
 
       .car-specs {
         grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+        gap: 12px;
       }
 
       .spec-item {
-        padding: 8px 6px;
-        min-height: 45px;
+        padding: 12px 10px;
+        min-height: 55px;
+        border-radius: 12px;
       }
 
       .spec-item i {
-        width: 24px;
-        height: 24px;
-        font-size: 14px;
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
       }
 
       .spec-item span {
-        font-size: 10px;
+        font-size: 12px;
       }
 
       .price-value {
@@ -916,8 +1093,13 @@
       }
 
       .action-btn {
-        padding: 10px;
+        padding: 12px 14px;
         font-size: 13px;
+        border-radius: 12px;
+      }
+
+      .action-btn i {
+        font-size: 14px;
       }
 
     }
@@ -989,6 +1171,19 @@
         
         <div id="fleetGrid" class="fleet-grid">
           <!-- Car cards will be dynamically added here -->
+          </div>
+        
+        <!-- Mobile Swiper -->
+        <div id="fleetSwiper" class="fleet-swiper">
+          <div id="fleetSwiperContainer" class="fleet-swiper-container">
+            <!-- Car cards will be dynamically added here -->
+          </div>
+          <div id="swipeHint" class="swipe-hint">
+            <div class="swipe-hint-content">
+              <i class="fa-solid fa-arrow-left"></i>
+              <span>اسحب يساراً</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1106,6 +1301,11 @@
         this.cars = [];
         this.carCounter = 0;
         this.fleetGrid = document.getElementById('fleetGrid');
+        this.fleetSwiperContainer = document.getElementById('fleetSwiperContainer');
+        this.swipeHint = document.getElementById('swipeHint');
+        this.currentSlide = 0;
+        this.isMobile = window.innerWidth <= 768;
+        this.hasSwiped = false;
         
         this.init();
       }
@@ -1113,6 +1313,23 @@
       init() {
         // Add initial sample cars
         this.addSampleCars();
+        
+        // Initialize swiper for mobile
+        if (this.isMobile) {
+          this.initSwiper();
+          // Set up initial card stack after a short delay to ensure DOM is ready
+          setTimeout(() => this.updateCardStack(), 100);
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+          const wasMobile = this.isMobile;
+          this.isMobile = window.innerWidth <= 768;
+          
+          if (wasMobile !== this.isMobile) {
+            this.updateDisplay();
+          }
+        });
       }
 
       addSampleCars() {
@@ -1158,6 +1375,246 @@
         
         this.cars.push(car);
         this.renderCarCard(car);
+      }
+
+      initSwiper() {
+        if (!this.fleetSwiperContainer) return;
+        
+        let startX = 0;
+        let startY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let isDragging = false;
+        let currentCard = null;
+        let startTime = 0;
+        let hasMoved = false;
+        let minSwipeDistance = 50; // Minimum distance for swipe
+        let maxTapDistance = 10; // Maximum distance for tap
+        let minSwipeVelocity = 0.3; // Minimum velocity for swipe
+        
+        // Touch events
+        this.fleetSwiperContainer.addEventListener('touchstart', (e) => {
+          const topCard = this.fleetSwiperContainer.querySelector('.fleet-swiper-slide:nth-child(1)');
+          if (!topCard) return;
+          
+          // Check if touch is on interactive elements
+          const target = e.target;
+          if (target.closest('button, a, input, select, textarea')) {
+            return; // Don't interfere with button clicks
+          }
+          
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+          startTime = Date.now();
+          isDragging = true;
+          hasMoved = false;
+          currentCard = topCard;
+          currentCard.classList.add('swiping');
+        });
+        
+        this.fleetSwiperContainer.addEventListener('touchmove', (e) => {
+          if (!isDragging || !currentCard) return;
+          
+          currentX = e.touches[0].clientX;
+          currentY = e.touches[0].clientY;
+          
+          const diffX = currentX - startX;
+          const diffY = currentY - startY;
+          const distance = Math.sqrt(diffX * diffX + diffY * diffY);
+          
+          // Mark as moved if distance is significant
+          if (distance > maxTapDistance) {
+            hasMoved = true;
+          }
+          
+          // Only allow left movement, limit right movement
+          const limitedDiffX = Math.min(diffX, 0); // Only negative values (left)
+          const rotation = limitedDiffX * 0.1;
+          
+          currentCard.style.transform = `translateX(${limitedDiffX}px) translateY(${diffY}px) rotate(${rotation}deg)`;
+        });
+        
+        this.fleetSwiperContainer.addEventListener('touchend', () => {
+          if (!isDragging || !currentCard) return;
+          
+          isDragging = false;
+          const diffX = currentX - startX;
+          const diffY = currentY - startY;
+          const distance = Math.sqrt(diffX * diffX + diffY * diffY);
+          const duration = Date.now() - startTime;
+          const velocity = distance / duration; // pixels per ms
+          
+          // Only process swipe if it meets criteria
+          if (hasMoved && distance > minSwipeDistance && velocity > minSwipeVelocity) {
+            const threshold = this.fleetSwiperContainer.offsetWidth * 0.2;
+            
+            // Only allow left swipes (negative diffX)
+            if (diffX < -threshold) {
+              this.swipeCard(currentCard, 'left');
+            } else {
+              // Return to center
+              currentCard.style.transform = '';
+              currentCard.classList.remove('swiping');
+            }
+          } else {
+            // Return to center for taps or insufficient swipes
+            currentCard.style.transform = '';
+            currentCard.classList.remove('swiping');
+          }
+          
+          currentCard = null;
+          
+          // Hide hint after first swipe
+          if (!this.hasSwiped && hasMoved && distance > minSwipeDistance) {
+            this.hasSwiped = true;
+            setTimeout(() => {
+              if (this.swipeHint) {
+                this.swipeHint.classList.add('hidden');
+              }
+            }, 1000);
+          }
+        });
+        
+        // Mouse events for desktop testing
+        this.fleetSwiperContainer.addEventListener('mousedown', (e) => {
+          const topCard = this.fleetSwiperContainer.querySelector('.fleet-swiper-slide:nth-child(1)');
+          if (!topCard) return;
+          
+          // Check if click is on interactive elements
+          const target = e.target;
+          if (target.closest('button, a, input, select, textarea')) {
+            return; // Don't interfere with button clicks
+          }
+          
+          startX = e.clientX;
+          startY = e.clientY;
+          startTime = Date.now();
+          isDragging = true;
+          hasMoved = false;
+          currentCard = topCard;
+          currentCard.classList.add('swiping');
+          e.preventDefault();
+        });
+        
+        this.fleetSwiperContainer.addEventListener('mousemove', (e) => {
+          if (!isDragging || !currentCard) return;
+          
+          currentX = e.clientX;
+          currentY = e.clientY;
+          
+          const diffX = currentX - startX;
+          const diffY = currentY - startY;
+          const distance = Math.sqrt(diffX * diffX + diffY * diffY);
+          
+          // Mark as moved if distance is significant
+          if (distance > maxTapDistance) {
+            hasMoved = true;
+          }
+          
+          // Only allow left movement, limit right movement
+          const limitedDiffX = Math.min(diffX, 0); // Only negative values (left)
+          const rotation = limitedDiffX * 0.1;
+          
+          currentCard.style.transform = `translateX(${limitedDiffX}px) translateY(${diffY}px) rotate(${rotation}deg)`;
+        });
+        
+        this.fleetSwiperContainer.addEventListener('mouseup', () => {
+          if (!isDragging || !currentCard) return;
+          
+          isDragging = false;
+          const diffX = currentX - startX;
+          const diffY = currentY - startY;
+          const distance = Math.sqrt(diffX * diffX + diffY * diffY);
+          const duration = Date.now() - startTime;
+          const velocity = distance / duration; // pixels per ms
+          
+          // Only process swipe if it meets criteria
+          if (hasMoved && distance > minSwipeDistance && velocity > minSwipeVelocity) {
+            const threshold = this.fleetSwiperContainer.offsetWidth * 0.2;
+            
+            // Only allow left swipes (negative diffX)
+            if (diffX < -threshold) {
+              this.swipeCard(currentCard, 'left');
+            } else {
+              // Return to center
+              currentCard.style.transform = '';
+              currentCard.classList.remove('swiping');
+            }
+          } else {
+            // Return to center for clicks or insufficient swipes
+            currentCard.style.transform = '';
+            currentCard.classList.remove('swiping');
+          }
+          
+          currentCard = null;
+          
+          if (!this.hasSwiped && hasMoved && distance > minSwipeDistance) {
+            this.hasSwiped = true;
+            setTimeout(() => {
+              if (this.swipeHint) {
+                this.swipeHint.classList.add('hidden');
+              }
+            }, 1000);
+          }
+        });
+        
+        // Prevent context menu
+        this.fleetSwiperContainer.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
+        });
+      }
+
+      swipeCard(card, direction) {
+        // Only handle left swipes
+        if (direction === 'left') {
+          card.classList.add('swiped-left');
+          
+          setTimeout(() => {
+            // Move card to end of container (next card)
+            this.fleetSwiperContainer.appendChild(card);
+            
+            // Reset card styles
+            card.style.transform = '';
+            card.classList.remove('swiping', 'swiped-left');
+            
+            // Update stack positions
+            this.updateCardStack();
+          }, 300);
+        }
+      }
+
+      updateCardStack() {
+        const slides = this.fleetSwiperContainer.querySelectorAll('.fleet-swiper-slide');
+        slides.forEach((slide, index) => {
+          slide.style.zIndex = slides.length - index;
+          slide.style.transform = '';
+          slide.style.opacity = '';
+          
+          if (index === 0) {
+            // Top card
+            slide.style.zIndex = 3;
+          } else if (index === 1) {
+            // Second card
+            slide.style.zIndex = 2;
+            slide.style.transform = 'scale(0.95) translateY(10px)';
+            slide.style.opacity = '0.8';
+          } else if (index === 2) {
+            // Third card
+            slide.style.zIndex = 1;
+            slide.style.transform = 'scale(0.9) translateY(20px)';
+            slide.style.opacity = '0.6';
+        } else {
+            // Hide other cards
+            slide.style.display = 'none';
+          }
+        });
+      }
+
+      updateDisplay() {
+        if (this.isMobile) {
+          this.initSwiper();
+          this.updateCardStack();
+        }
       }
 
       renderCarCard(car) {
@@ -1221,7 +1678,21 @@
           </div>
         `;
 
-        this.fleetGrid.appendChild(carCard);
+        // Add to grid (desktop)
+        this.fleetGrid.appendChild(carCard.cloneNode(true));
+        
+        // Add to swiper (mobile)
+        if (this.fleetSwiperContainer) {
+          const swiperSlide = document.createElement('div');
+          swiperSlide.className = 'fleet-swiper-slide';
+          swiperSlide.appendChild(carCard.cloneNode(true));
+          this.fleetSwiperContainer.appendChild(swiperSlide);
+        }
+        
+        // Update card stack after adding new card
+        if (this.isMobile) {
+          setTimeout(() => this.updateCardStack(), 100);
+        }
       }
 
       removeCar(carId) {
@@ -1230,9 +1701,21 @@
           if (carIndex !== -1) {
             this.cars.splice(carIndex, 1);
             
-            const carCard = document.querySelector(`[data-car-id="${carId}"]`);
-            if (carCard) {
-              carCard.remove();
+            // Remove from grid
+            const gridCarCard = this.fleetGrid.querySelector(`[data-car-id="${carId}"]`);
+            if (gridCarCard) {
+              gridCarCard.remove();
+            }
+            
+            // Remove from swiper
+            const swiperCarCard = this.fleetSwiperContainer.querySelector(`[data-car-id="${carId}"]`);
+            if (swiperCarCard) {
+              swiperCarCard.parentElement.remove(); // Remove the slide wrapper
+            }
+            
+            // Update card stack after removal
+            if (this.isMobile) {
+              this.updateCardStack();
             }
           }
         }
