@@ -89,14 +89,12 @@
       justify-content: center;
       font-size: 22px;
       box-shadow: var(--shadow);
-      transition: all 0.3s ease;
       text-decoration: none !important;
     }
 
     .action:hover {
       background: var(--yellow);
       color: var(--black);
-      transform: translateY(-6px);
     }
 
     /* Cards */
@@ -111,14 +109,7 @@
       box-shadow: var(--shadow);
       padding: 20px;
       margin-bottom: 20px;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s ease;
-    }
-
-    .card.show {
       opacity: 1;
-      transform: translateY(0);
     }
 
     .card h2 {
@@ -156,7 +147,6 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      transition: 0.3s;
       direction: ltr;
       text-align: center;
       font-family: 'Courier New', monospace;
@@ -180,12 +170,6 @@
       border: 2px solid var(--yellow);
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: all 0.3s ease;
-    }
-
-    .car-item:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
     }
 
     .car-item img {
@@ -230,12 +214,6 @@
       right: 0;
       height: 4px;
       background: linear-gradient(90deg, var(--yellow), #ffed4e, var(--yellow));
-      animation: shimmer 3s infinite;
-    }
-
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
     }
 
     .card-header {
@@ -255,12 +233,6 @@
     .premium-card h2 i {
       color: #ffed4e;
       margin-left: 10px;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
     }
 
     .header-decoration {
@@ -283,31 +255,9 @@
       border-radius: 20px;
       padding: 0;
       border: 2px solid var(--yellow);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
       overflow: hidden;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .service-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 211, 0, 0.1), transparent);
-      transition: left 0.6s;
-    }
-
-    .service-card:hover::before {
-      left: 100%;
-    }
-
-    .service-card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      border-color: #ffed4e;
     }
 
     .service-icon-wrapper {
@@ -387,7 +337,6 @@
       right: 0;
       height: 4px;
       background: linear-gradient(90deg, var(--yellow), #ffed4e, var(--yellow));
-      animation: shimmer 3s infinite;
     }
 
     .company-header {
@@ -407,12 +356,6 @@
       justify-content: center;
       margin: 0 auto 20px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
     }
 
     .company-icon i {
@@ -473,14 +416,7 @@
       padding: 20px;
       border-radius: 15px;
       border: 2px solid #e9ecef;
-      transition: all 0.3s ease;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .feature-item:hover {
-      transform: translateY(-5px);
-      border-color: var(--yellow);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
     .feature-item i {
@@ -557,6 +493,229 @@
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
 
+    /* Fleet Section Styles */
+    .fleet-card {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border: 3px solid var(--yellow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fleet-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--yellow), #ffed4e, var(--yellow));
+    }
+
+    .fleet-header {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .fleet-header h2 {
+      color: var(--black);
+      font-size: 28px;
+      font-weight: 900;
+      margin: 0 0 10px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .fleet-header p {
+      color: #666;
+      font-size: 16px;
+      margin: 0;
+      font-weight: 600;
+    }
+
+
+    .fleet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .car-card {
+      background: var(--white);
+      border-radius: 20px;
+      border: 2px solid var(--yellow);
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 620px;
+    }
+
+    .car-image {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px 18px 0 0;
+    }
+
+    .car-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .car-image-placeholder {
+      font-size: 60px;
+      color: #ccc;
+    }
+
+    .car-info {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 20px;
+    }
+
+    .car-title-section {
+      text-align: right;
+    }
+
+    .car-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--black);
+      margin: 0 0 4px 0;
+    }
+
+    .car-model {
+      font-size: 14px;
+      color: #666;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .car-specs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .spec-item {
+      background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      padding: 10px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+      min-height: 50px;
+    }
+
+    .spec-item i {
+      font-size: 16px;
+      color: var(--yellow);
+      background: var(--black);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .spec-item span {
+      font-size: 11px;
+      color: #555;
+      font-weight: 600;
+      line-height: 1.2;
+      text-align: center;
+      flex: 1;
+    }
+
+    .car-price {
+      text-align: center;
+    }
+
+    .price-label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .price-value {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--black);
+      background: linear-gradient(135deg, var(--yellow), #ffed4e);
+      padding: 8px 15px;
+      border-radius: 15px;
+      display: inline-block;
+    }
+
+    .car-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    .call-btn {
+      background: linear-gradient(135deg, #28a745, #20c997);
+      color: white;
+    }
+
+    .whatsapp-btn {
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: white;
+    }
+
+    .remove-car-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(220, 53, 69, 0.9);
+      color: white;
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 12px;
+      opacity: 0;
+    }
+
+    .car-card:hover .remove-car-btn {
+      opacity: 1;
+    }
+
     footer {
       text-align: center;
       padding: 20px;
@@ -566,12 +725,40 @@
       border-top: 2px solid var(--yellow);
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
 
     /* Responsive Design */
+    @media (min-width: 640px) {
+      .car-card {
+        min-height: 660px;
+      }
+      
+      .car-info {
+        padding: 24px;
+        gap: 24px;
+      }
+      
+      .car-specs {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .car-card {
+        min-height: 700px;
+      }
+      
+      .car-info {
+        padding: 28px;
+        gap: 28px;
+      }
+      
+      .car-specs {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+    }
+
     @media (max-width: 768px) {
       .app {
         margin: 0;
@@ -682,6 +869,57 @@
         padding: 12px;
         font-size: 15px;
       }
+
+      /* Fleet responsive styles */
+      .fleet-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .car-card {
+        margin-bottom: 10px;
+        min-height: 620px;
+      }
+
+      .car-info {
+        padding: 20px;
+        gap: 20px;
+      }
+
+      .car-name {
+        font-size: 18px;
+      }
+
+      .car-specs {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .spec-item {
+        padding: 8px 6px;
+        min-height: 45px;
+      }
+
+      .spec-item i {
+        width: 24px;
+        height: 24px;
+        font-size: 14px;
+      }
+
+      .spec-item span {
+        font-size: 10px;
+      }
+
+      .price-value {
+        font-size: 20px;
+        padding: 6px 12px;
+      }
+
+      .action-btn {
+        padding: 10px;
+        font-size: 13px;
+      }
+
     }
 
     @media (max-width: 480px) {
@@ -738,6 +976,19 @@
         <div class="phones">
           <a href="tel:+9717800007001" class="phone"><i class="fa-solid fa-phone"></i> 0780 000 7001</a>
           <a href="tel:+9717733393933" class="phone"><i class="fa-solid fa-phone"></i> 0773 339 3933</a>
+        </div>
+      </div>
+
+      <!-- Fleet Section -->
+      <div class="card fleet-card">
+        <div class="fleet-header">
+          <h2><i class="fa-solid fa-car"></i> أسطولنا</h2>
+          <p>اختر السيارة المناسبة لرحلتك</p>
+        </div>
+        
+        
+        <div id="fleetGrid" class="fleet-grid">
+          <!-- Car cards will be dynamically added here -->
         </div>
       </div>
 
@@ -848,17 +1099,151 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Reveal animation on scroll
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
 
-    document.querySelectorAll('.card').forEach(el => observer.observe(el));
+    // Fleet Management JavaScript
+    class FleetManager {
+      constructor() {
+        this.cars = [];
+        this.carCounter = 0;
+        this.fleetGrid = document.getElementById('fleetGrid');
+        
+        this.init();
+      }
+
+      init() {
+        // Add initial sample cars
+        this.addSampleCars();
+      }
+
+      addSampleCars() {
+        const sampleCars = [
+          {
+            name: 'تويوتا كامري',
+            model: '2023',
+            transmission: 'أوتوماتيك',
+            passengers: '5',
+            luggage: '2',
+            price: '150,000',
+            image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=400&h=300&fit=crop'
+          },
+          {
+            name: 'هيونداي إلنترا',
+            model: '2022',
+            transmission: 'أوتوماتيك',
+            passengers: '5',
+            luggage: '2',
+            price: '120,000',
+            image: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=400&h=300&fit=crop'
+          },
+          {
+            name: 'نيسان ألتيما',
+            model: '2023',
+            transmission: 'أوتوماتيك',
+            passengers: '5',
+            luggage: '2',
+            price: '140,000',
+            image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=400&h=300&fit=crop'
+          }
+        ];
+
+        sampleCars.forEach(car => this.addCar(car));
+      }
+
+
+      addCar(carData) {
+        const car = {
+          id: ++this.carCounter,
+          ...carData
+        };
+        
+        this.cars.push(car);
+        this.renderCarCard(car);
+      }
+
+      renderCarCard(car) {
+        const carCard = document.createElement('div');
+        carCard.className = 'car-card';
+        carCard.dataset.carId = car.id;
+
+        carCard.innerHTML = `
+          <button class="remove-car-btn" onclick="fleetManager.removeCar(${car.id})">
+            <i class="fa-solid fa-times"></i>
+          </button>
+          
+          <div class="car-image">
+            ${car.image ? 
+              `<img src="${car.image}" alt="${car.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+               <div class="car-image-placeholder" style="display:none;"><i class="fa-solid fa-car"></i></div>` :
+              `<div class="car-image-placeholder"><i class="fa-solid fa-car"></i></div>`
+            }
+          </div>
+          
+          <div class="car-info">
+            <div class="car-title-section">
+              <h3 class="car-name">${car.name}</h3>
+              <p class="car-model">موديل ${car.model}</p>
+            </div>
+            
+            <div class="car-specs">
+              <div class="spec-item">
+                <i class="fa-solid fa-cog"></i>
+                <span>${car.transmission}</span>
+              </div>
+              <div class="spec-item">
+                <i class="fa-solid fa-users"></i>
+                <span>${car.passengers} ركاب</span>
+              </div>
+              <div class="spec-item">
+                <i class="fa-solid fa-suitcase"></i>
+                <span>${car.luggage} حقيبة</span>
+              </div>
+              <div class="spec-item">
+                <i class="fa-solid fa-calendar-day"></i>
+                <span>تأجير يومي</span>
+              </div>
+            </div>
+            
+            <div class="car-price">
+              <div class="price-label">السعر اليومي</div>
+              <div class="price-value">${car.price} د.ع</div>
+            </div>
+            
+            <div class="car-actions">
+              <a href="tel:+9717800007001" class="action-btn call-btn">
+                <i class="fa-solid fa-phone"></i>
+                <span>اتصال</span>
+              </a>
+              <a href="https://wa.me/9647733393933" class="action-btn whatsapp-btn">
+                <i class="fab fa-whatsapp"></i>
+                <span>واتساب</span>
+              </a>
+            </div>
+          </div>
+        `;
+
+        this.fleetGrid.appendChild(carCard);
+      }
+
+      removeCar(carId) {
+        if (confirm('هل أنت متأكد من حذف هذه السيارة؟')) {
+          const carIndex = this.cars.findIndex(car => car.id === carId);
+          if (carIndex !== -1) {
+            this.cars.splice(carIndex, 1);
+            
+            const carCard = document.querySelector(`[data-car-id="${carId}"]`);
+            if (carCard) {
+              carCard.remove();
+            }
+          }
+        }
+      }
+    }
+
+    // Initialize fleet manager when DOM is loaded
+    let fleetManager;
+    document.addEventListener('DOMContentLoaded', () => {
+      fleetManager = new FleetManager();
+    });
   </script>
 <!-- Code injected by live-server -->
 <script>
