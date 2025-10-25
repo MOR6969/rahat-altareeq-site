@@ -545,7 +545,7 @@
       display: none;
       margin-top: 20px;
       position: relative;
-      height: 700px;
+      height: 600px;
       perspective: 1000px;
     }
 
@@ -598,15 +598,15 @@
 
     .swipe-hint {
       position: absolute;
-      bottom: 20px;
+      bottom: 15px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border: 2px solid var(--yellow);
-      border-radius: 25px;
-      padding: 12px 20px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--yellow);
+      border-radius: 18px;
+      padding: 8px 14px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       z-index: 10;
       opacity: 1;
       transition: all 0.3s ease-out;
@@ -614,22 +614,22 @@
 
     .swipe-hint.hidden {
       opacity: 0;
-      transform: translateX(-50%) translateY(20px);
+      transform: translateX(-50%) translateY(15px);
       pointer-events: none;
     }
 
     .swipe-hint-content {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 14px;
+      gap: 6px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--black);
     }
 
     .swipe-hint-content i {
       color: var(--yellow);
-      font-size: 16px;
+      font-size: 14px;
       animation: swipeHintPulse 2s ease-in-out infinite;
     }
 
@@ -1054,12 +1054,12 @@
 
       .car-card {
         margin-bottom: 10px;
-        min-height: 620px;
+        min-height: 520px;
       }
 
       .car-info {
-        padding: 20px;
-        gap: 20px;
+        padding: 16px;
+        gap: 16px;
       }
 
       .car-name {
@@ -1422,6 +1422,18 @@
           const diffY = currentY - startY;
           const distance = Math.sqrt(diffX * diffX + diffY * diffY);
           
+          // Check if this is primarily a vertical scroll (not a swipe)
+          const isVerticalScroll = Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 20;
+          
+          if (isVerticalScroll) {
+            // If it's a vertical scroll, don't interfere with page scrolling
+            isDragging = false;
+            currentCard.style.transform = '';
+            currentCard.classList.remove('swiping');
+            currentCard = null;
+            return;
+          }
+          
           // Mark as moved if distance is significant
           if (distance > maxTapDistance) {
             hasMoved = true;
@@ -1431,7 +1443,7 @@
           const limitedDiffX = Math.min(diffX, 0); // Only negative values (left)
           const rotation = limitedDiffX * 0.1;
           
-          currentCard.style.transform = `translateX(${limitedDiffX}px) translateY(${diffY}px) rotate(${rotation}deg)`;
+          currentCard.style.transform = `translateX(${limitedDiffX}px) rotate(${rotation}deg)`;
         });
         
         this.fleetSwiperContainer.addEventListener('touchend', () => {
@@ -1506,6 +1518,18 @@
           const diffY = currentY - startY;
           const distance = Math.sqrt(diffX * diffX + diffY * diffY);
           
+          // Check if this is primarily a vertical movement (not a swipe)
+          const isVerticalMovement = Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 20;
+          
+          if (isVerticalMovement) {
+            // If it's a vertical movement, don't interfere
+            isDragging = false;
+            currentCard.style.transform = '';
+            currentCard.classList.remove('swiping');
+            currentCard = null;
+            return;
+          }
+          
           // Mark as moved if distance is significant
           if (distance > maxTapDistance) {
             hasMoved = true;
@@ -1515,7 +1539,7 @@
           const limitedDiffX = Math.min(diffX, 0); // Only negative values (left)
           const rotation = limitedDiffX * 0.1;
           
-          currentCard.style.transform = `translateX(${limitedDiffX}px) translateY(${diffY}px) rotate(${rotation}deg)`;
+          currentCard.style.transform = `translateX(${limitedDiffX}px) rotate(${rotation}deg)`;
         });
         
         this.fleetSwiperContainer.addEventListener('mouseup', () => {
