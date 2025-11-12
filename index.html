@@ -53,6 +53,16 @@
       margin: 0;
     }
 
+    .logo {
+      max-width: 100%;
+      height: auto;
+      max-height: 120px;
+      margin: 0 auto 15px;
+      display: block;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+
     header p {
       font-size: 16px;
       color: #333;
@@ -1073,8 +1083,8 @@
         padding: 8%;
       }
 
-      header h1 {
-        font-size: 32px;
+      .logo {
+        max-height: 100px;
       }
 
       .hero-icon {
@@ -1284,8 +1294,8 @@
     }
 
     @media (max-width: 480px) {
-      header h1 {
-        font-size: 28px;
+      .logo {
+        max-height: 80px;
       }
 
       header p {
@@ -1320,7 +1330,7 @@
 <body>
   <div class="app">
     <header>
-      <h1>راحة الطريق</h1>
+      <img src="cars/logo.png" alt="راحة الطريق" class="logo">
       <p>تأجير سيارات فاخرة | حجوزات فورية | توصيل مطار</p>
 
       <div class="actions">
